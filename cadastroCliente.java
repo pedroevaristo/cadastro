@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class Pessoa{
+class Pessoa {
     private String namePerson;
     private String surnamePerson;
     private String cepPerson;
@@ -12,7 +12,7 @@ class Pessoa{
         this.cepPerson = cepPerson;
         this.cellPhonePerson = cellPhonePerson;
     }
-
+}
 //    public String getNamePerson() {
 //        return namePerson;
 //    }
@@ -90,4 +90,3 @@ public class cadastroCliente {
         }
     }
 }
-
