@@ -14,14 +14,46 @@ class Pessoa {
         this.cepPerson = cepPerson;
         this.cellPhonePerson = cellPhonePerson;
     }
+
+    public String getNamePerson() {
+        return namePerson;
+    }
+
+    public void setNamePerson(String namePerson) {
+        this.namePerson = namePerson;
+    }
+
+    public String getSurnamePerson() {
+        return surnamePerson;
+    }
+
+    public void setSurnamePerson(String surnamePerson) {
+        this.surnamePerson = surnamePerson;
+    }
+
+    public String getCepPerson() {
+        return cepPerson;
+    }
+
+    public void setCepPerson(String cepPerson) {
+        this.cepPerson = cepPerson;
+    }
+
+    public String getCellPhonePerson() {
+        return cellPhonePerson;
+    }
+
+    public void setCellPhonePerson(String cellPhonePerson) {
+        this.cellPhonePerson = cellPhonePerson;
+    }
 }
 
-
+//fazer alguma lógica para adquirir novos usuários ao invés de substituir. Linhas 79 e 83
 public class cadastroCliente {
+    private static Map<Integer, Pessoa> listaPessoa = new HashMap<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Map<Integer, Pessoa> listaPessoa = new HashMap<>();
 
         System.out.println("Quantidades de clientes:");
         Integer clientes = sc.nextInt();
@@ -29,29 +61,32 @@ public class cadastroCliente {
         System.out.println("Digite as seguintes informações");
         inserirInfo(clientes);
 
-        System.out.printf("Digite entre 0 e %d", clientes);
-        String type = "";
         boolean status = true;
-        while(status) {
-
+        while (status) {
+            System.out.println("Digite o numero da lista");
             int numeroListaPessoa = sc.nextInt();
-            sc.nextLine();
+            //sc.nextLine();
 
-            Pessoa consulta = listaPessoa.get(numeroListaPessoa);
+            if (listaPessoa.containsKey(numeroListaPessoa)) {
+                Pessoa MostrarInfo = listaPessoa.get(numeroListaPessoa);
 
-            if(consulta != null){
-                System.out.println("Cliente" + numeroListaPessoa +": "+ consulta);
-                System.out.println("Quer colocar mais alguma informações nova?");
+                System.out.println("indíce : " + numeroListaPessoa);
+                System.out.println("Cliente : " + MostrarInfo.getNamePerson() +" "+ MostrarInfo.getSurnamePerson() + "\nNumero de telefone : "+MostrarInfo.getCellPhonePerson());
+                System.out.println("CEP : "+ MostrarInfo.getCepPerson());
+                System.out.println("Quer colocar novos cadastros, ainda?");
                 String escolha = sc.next();
 
-                if(escolha.equals("sim")){
+                if (escolha.equals("sim")) {
+                    System.out.println("quantos?");
+                    Integer novosClientes = sc.nextInt();
+
+                    inserirInfo(novosClientes);
 
                 } else if (escolha.equals("nao") || escolha.equals("n")) {
-
+                    System.exit(0);
                 }
-            }else{
-                System.out.println("Não foi encontrado Quer colocar a informação como novo cadastro?");
-                 type = sc.nextLine();
+            } else{
+                System.out.println("Não foi encontrado, digite outro numero");
             }
 
         }
@@ -65,11 +100,14 @@ public class cadastroCliente {
             return false;
         }
     }
-    private static void inserirInfo(int clientes){
-        Scanner sc = new Scanner(System.in);
-        Map<Integer, Pessoa> listaPessoa = new HashMap<>();
 
-        for(int i = 0; i < clientes; i++) {
+    private static void inserirInfo(int clientes) {
+        Scanner sc = new Scanner(System.in);
+
+
+        for (int i = 1; i <= clientes; i++) {
+
+            String idPerson = String.valueOf(i);
             System.out.println("Nome");
             String namePerson = sc.next();
             System.out.println("Sobrenome");
@@ -82,17 +120,17 @@ public class cadastroCliente {
 
             if (verificarCEP(cepPerson) == true) {
                 System.out.println("verificando...achou");
-                Pessoa pessoa = new Pessoa(namePerson, surnamePerson,cepPerson,cellPhonePerson);
+                Pessoa pessoa = new Pessoa(namePerson, surnamePerson, cepPerson, cellPhonePerson);
                 listaPessoa.put(i, pessoa);
             } else {
                 System.out.println("Não foi encontrado, escreva novamente");
-                boolean status =  true;
+                boolean status = true;
 
                 while (status) {
                     cepPerson = sc.next();
                     if (cepPerson.length() == 8) {
                         System.out.println("entrou no if while");
-                        Pessoa pessoa = new Pessoa(namePerson, surnamePerson,cepPerson,cellPhonePerson);
+                        Pessoa pessoa = new Pessoa(namePerson, surnamePerson, cepPerson, cellPhonePerson);
                         status = false;
                     }
                     //sc.nextLine();
@@ -103,36 +141,3 @@ public class cadastroCliente {
     }
 }
 
-
-//    public String getNamePerson() {
-//        return namePerson;
-//    }
-//
-//    public void setNamePerson(String namePerson) {
-//        this.namePerson = namePerson;
-//    }
-//
-//    public String getSurnamePerson() {
-//        return surnamePerson;
-//    }
-//
-//    public void setSurnamePerson(String surnamePerson) {
-//        this.surnamePerson = surnamePerson;
-//    }
-//
-//    public String getCepPerson() {
-//        return cepPerson;
-//    }
-//
-//    public void setCepPerson(String cepPerson) {
-//        this.cepPerson = cepPerson;
-//    }
-//
-//    public String getCellPhonePerson() {
-//        return cellPhonePerson;
-//    }
-//
-//    public void setCellPhonePerson(String cellPhonePerson) {
-//        this.cellPhonePerson = cellPhonePerson;
-//    }
-//
