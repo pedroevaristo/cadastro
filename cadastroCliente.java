@@ -63,33 +63,38 @@ public class cadastroCliente {
         inserirInfo(clientes, proxChave);
 
         boolean status = true;
-        while (status) {
+        while(status) {
             System.out.println("Digite o numero da lista");
             int numeroListaPessoa = sc.nextInt();
             //sc.nextLine();
 
             if (listaPessoa.containsKey(numeroListaPessoa)) {
-                Pessoa MostrarInfo = listaPessoa.get(numeroListaPessoa);
+                do {
+                    Pessoa MostrarInfo = listaPessoa.get(numeroListaPessoa);
 
-                System.out.println("indíce : " + numeroListaPessoa);
-                System.out.println("Cliente : " + MostrarInfo.getNamePerson() +" "+ MostrarInfo.getSurnamePerson() + "\nNumero de telefone : "+MostrarInfo.getCellPhonePerson());
-                System.out.println("CEP : "+ MostrarInfo.getCepPerson());
-                System.out.println("Quer colocar novos cadastros, ainda?");
-                String escolha = sc.next();
+                    System.out.println("indíce : " + numeroListaPessoa);
+                    System.out.println("Cliente : " + MostrarInfo.getNamePerson() + " " + MostrarInfo.getSurnamePerson() + "\nNumero de telefone : " + MostrarInfo.getCellPhonePerson());
+                    System.out.println("CEP : " + MostrarInfo.getCepPerson());
+                    System.out.println("Quer colocar novos cadastros, ainda? Ou quer ainda consultar os cadastros? Escreva consultar");
+                    String escolha = sc.next();
 
-                if (escolha.equals("sim")) {
-                    System.out.println("quantos?");
-                    Integer novosClientes = sc.nextInt();
+                    if (escolha.equals("sim")) {
+                        System.out.println("quantos?");
+                        Integer novosClientes = sc.nextInt();
 
-                    inserirInfo(novosClientes,proxChave);
+                        inserirInfo(novosClientes, proxChave);
 
-                } else if (escolha.equals("nao") || escolha.equals("n")) {
-                    System.exit(0);
+                    } else if (escolha.equals("nao") || escolha.equals("n")) {
+                        status = false;
+                        System.exit(0);
+                    } else if (escolha.equals("consultar")) {
+                        break;
+                    }
                 }
-            } else{
+                while (true);
+            } else {
                 System.out.println("Não foi encontrado, digite outro numero");
             }
-
         }
         sc.close();
     }
@@ -107,7 +112,7 @@ public class cadastroCliente {
 
 
         for (int i = 0; i < clientes; i++) {
-                int chave = chaveInicial + i;
+            int chave = chaveInicial + i;
             String idPerson = String.valueOf(i);
             System.out.println("Nome");
             String namePerson = sc.next();
