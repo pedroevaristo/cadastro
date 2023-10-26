@@ -51,6 +51,7 @@ class Pessoa {
 //fazer alguma lógica para adquirir novos usuários ao invés de substituir. Linhas 79 e 83
 public class cadastroCliente {
     private static Map<Integer, Pessoa> listaPessoa = new HashMap<>();
+    private static int proxChave = 1;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -59,7 +60,7 @@ public class cadastroCliente {
         Integer clientes = sc.nextInt();
 
         System.out.println("Digite as seguintes informações");
-        inserirInfo(clientes);
+        inserirInfo(clientes, proxChave);
 
         boolean status = true;
         while (status) {
@@ -80,7 +81,7 @@ public class cadastroCliente {
                     System.out.println("quantos?");
                     Integer novosClientes = sc.nextInt();
 
-                    inserirInfo(novosClientes);
+                    inserirInfo(novosClientes,proxChave);
 
                 } else if (escolha.equals("nao") || escolha.equals("n")) {
                     System.exit(0);
@@ -101,12 +102,12 @@ public class cadastroCliente {
         }
     }
 
-    private static void inserirInfo(int clientes) {
+    private static void inserirInfo(int clientes, int chaveInicial) {
         Scanner sc = new Scanner(System.in);
 
 
-        for (int i = 1; i <= clientes; i++) {
-
+        for (int i = 0; i < clientes; i++) {
+                int chave = chaveInicial + i;
             String idPerson = String.valueOf(i);
             System.out.println("Nome");
             String namePerson = sc.next();
@@ -121,7 +122,7 @@ public class cadastroCliente {
             if (verificarCEP(cepPerson) == true) {
                 System.out.println("verificando...achou");
                 Pessoa pessoa = new Pessoa(namePerson, surnamePerson, cepPerson, cellPhonePerson);
-                listaPessoa.put(i, pessoa);
+                listaPessoa.put(chave, pessoa);
             } else {
                 System.out.println("Não foi encontrado, escreva novamente");
                 boolean status = true;
@@ -138,6 +139,7 @@ public class cadastroCliente {
                 }
             }
         }
+        proxChave = chaveInicial + clientes;
     }
 }
 
