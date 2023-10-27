@@ -1,3 +1,5 @@
+package cadastroCliente;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -62,41 +64,40 @@ public class cadastroCliente {
         System.out.println("Digite as seguintes informações");
         inserirInfo(clientes, proxChave);
 
-        boolean status = true;
-        while(status) {
-            System.out.println("Digite o numero da lista");
-            int numeroListaPessoa = sc.nextInt();
-            //sc.nextLine();
 
-            if (listaPessoa.containsKey(numeroListaPessoa)) {
-                do {
-                    Pessoa MostrarInfo = listaPessoa.get(numeroListaPessoa);
+        //sc.nextLine();
+        int numeroListaPessoa;
+        while (true) {
+            System.out.println("escolha entre as opções\n consultar(1)\n novos cadastros(2)\nsair(3)\n deletar cadastro especifico(4)");
+            int escolha = sc.nextInt();
+            switch (escolha) {
 
-                    System.out.println("indíce : " + numeroListaPessoa);
-                    System.out.println("Cliente : " + MostrarInfo.getNamePerson() + " " + MostrarInfo.getSurnamePerson() + "\nNumero de telefone : " + MostrarInfo.getCellPhonePerson());
-                    System.out.println("CEP : " + MostrarInfo.getCepPerson());
-                    System.out.println("Quer colocar novos cadastros, ainda? Ou quer ainda consultar os cadastros? Escreva consultar");
-                    String escolha = sc.next();
 
-                    if (escolha.equals("sim")) {
-                        System.out.println("quantos?");
-                        Integer novosClientes = sc.nextInt();
+                case 1:
+                    System.out.println("Digite o numero da lista");
 
-                        inserirInfo(novosClientes, proxChave);
+                    numeroListaPessoa = sc.nextInt();
+                    consultar(numeroListaPessoa);
+                    break;
 
-                    } else if (escolha.equals("nao") || escolha.equals("n")) {
-                        status = false;
-                        System.exit(0);
-                    } else if (escolha.equals("consultar")) {
-                        break;
-                    }
-                }
-                while (true);
-            } else {
-                System.out.println("Não foi encontrado, digite outro numero");
+                case 2:
+                    System.out.println("Digite quantos cadastros novos quer na lista");
+
+                    numeroListaPessoa = sc.nextInt();
+                    inserirInfo(numeroListaPessoa, proxChave);
+                    break;
+
+                case 3:
+                    System.exit(0);
+                    sc.close();
+                    break;
+
+                case 4:
+                    deletarCadastro();
+                    break;
+
             }
         }
-        sc.close();
     }
 
     private static boolean verificarCEP(String cepPerson) {
@@ -110,10 +111,10 @@ public class cadastroCliente {
     private static void inserirInfo(int clientes, int chaveInicial) {
         Scanner sc = new Scanner(System.in);
 
-
         for (int i = 0; i < clientes; i++) {
             int chave = chaveInicial + i;
-            String idPerson = String.valueOf(i);
+
+
             System.out.println("Nome");
             String namePerson = sc.next();
             System.out.println("Sobrenome");
@@ -128,6 +129,7 @@ public class cadastroCliente {
                 System.out.println("verificando...achou");
                 Pessoa pessoa = new Pessoa(namePerson, surnamePerson, cepPerson, cellPhonePerson);
                 listaPessoa.put(chave, pessoa);
+
             } else {
                 System.out.println("Não foi encontrado, escreva novamente");
                 boolean status = true;
@@ -140,11 +142,53 @@ public class cadastroCliente {
                         status = false;
                     }
                     //sc.nextLine();
-
                 }
             }
         }
         proxChave = chaveInicial + clientes;
     }
+
+    private static void consultar(int numeroListaPessoa) {
+        Scanner sc = new Scanner(System.in);
+
+        boolean status = true;
+
+
+        if (listaPessoa.containsKey(numeroListaPessoa)) {
+
+            Pessoa MostrarInfo = listaPessoa.get(numeroListaPessoa);
+
+            System.out.println("indíce : " + numeroListaPessoa);
+            System.out.println("Cliente : " + MostrarInfo.getNamePerson() + " " + MostrarInfo.getSurnamePerson() + "\nNumero de telefone : " + MostrarInfo.getCellPhonePerson());
+            System.out.println("CEP : " + MostrarInfo.getCepPerson());
+        } else {
+            System.out.println("Não foi encontrado, digite outro numero");
+        }
+    }
+
+    private static void novoCadastro() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("quantos?");
+        Integer novosClientes = sc.nextInt();
+
+        inserirInfo(novosClientes, proxChave);
+
+    }
+
+    private static void deletarCadastro() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Qual é o id do cadastro que quer deletar?");
+        int idCadastro = sc.nextInt();
+        if (listaPessoa.containsKey(idCadastro)) {
+            listaPessoa.remove(idCadastro);
+            System.out.println("pessoa removida com Sucesso");
+        } else {
+            System.out.println("Índice inválido. Tente novamente.");
+
+
+        }
+    }
+
 }
 

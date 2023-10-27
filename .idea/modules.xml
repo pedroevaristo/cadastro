@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/cadastro.iml" filepath="$PROJECT_DIR$/.idea/cadastro.iml" />
-      <module fileurl="file://$PROJECT_DIR$/registro/registro.iml" filepath="$PROJECT_DIR$/registro/registro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cadastroComBD/cadastroComBD.iml" filepath="$PROJECT_DIR$/cadastroComBD/cadastroComBD.iml" />
     </modules>
   </component>
 </project>
