@@ -1,5 +1,8 @@
 package cadastroCliente;
 
+import org.w3c.dom.ls.LSOutput;
+
+import javax.crypto.spec.PSource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
